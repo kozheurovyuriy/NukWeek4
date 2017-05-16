@@ -217,4 +217,21 @@ public class CustomDequeTest {
         assertTrue(objects.length == 4);
     }
 
+    @Test
+    public void testIterator() throws Exception {
+        Iterator iter = customDeque.iterator();
+
+        for(int i = 1; iter.hasNext(); i++){
+            assertEquals((int)iter.next(), i);
+        }
+    }
+
+    @Test
+    public void testDescIterator() throws Exception {
+        Iterator iter = customDeque.descendingIterator();
+
+        for(int i = 4; iter.hasNext(); i--){
+            assertEquals((int)iter.next(), i);
+        }
+    }
 }

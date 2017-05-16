@@ -146,8 +146,10 @@ public class CustomDeque<T> implements Deque<T> {
         return tail.getElement();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T removeFirst() {
+
         if (size() == 0)
             throw new NoSuchElementException();
 
@@ -174,6 +176,7 @@ public class CustomDeque<T> implements Deque<T> {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T removeLast() {
         if (size() == 0)
@@ -269,6 +272,7 @@ public class CustomDeque<T> implements Deque<T> {
         return removeFirst();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean remove(Object o) {
         Node<T> temphead = head;
@@ -299,16 +303,17 @@ public class CustomDeque<T> implements Deque<T> {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean containsAll(Collection<?> c) {
         int count = 0;
         Object[] obc = c.toArray();
         Node<T> temp;
 
-        for (int j = 0; j < obc.length; j++) {
+        for (Object anObc : obc) {
             temp = head;
             for (int i = 0; i < size(); i++) {
-                if (obc[j].equals(temp.getElement()))
+                if (anObc.equals(temp.getElement()))
                     count++;
                 temp = temp.getNext();
             }
@@ -316,26 +321,26 @@ public class CustomDeque<T> implements Deque<T> {
         return count == obc.length;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
         Object[] tempCol = c.toArray();
-        for (int i = 0; i < tempCol.length; i++)
-            add((T) tempCol[i]);
+        for (Object aTempCol : tempCol) add((T) aTempCol);
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean flag = false;
         Object[] objects = c.toArray();
         Node <T> temp;
 
-
-        for(int i = 0; i < objects.length; i++) {
+        for (Object object : objects) {
             temp = head;
             for (int j = 0; j < size(); j++) {
-                if (objects[i].equals(temp.getElement())) {
-                    remove(objects[i]);
+                if (object.equals(temp.getElement())) {
+                    remove(object);
                     flag = true;
                     break;
                 }
@@ -358,6 +363,7 @@ public class CustomDeque<T> implements Deque<T> {
         tail = null;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean contains(Object o) {
         Node<T>  temp = head;
@@ -371,6 +377,7 @@ public class CustomDeque<T> implements Deque<T> {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object[] toArray() {
         Object[] objectsArray = new Object[size()];
@@ -382,9 +389,12 @@ public class CustomDeque<T> implements Deque<T> {
         return objectsArray;
     }
 
+    //Can not override because we have parametrized deque with type T
+    //and input parameters have T1 type
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Operation Unsupported - because this deque" +
+                " is parametrized with type T and input method parameters have T1 type");
     }
 
     @Override
@@ -392,6 +402,7 @@ public class CustomDeque<T> implements Deque<T> {
         return remove(o);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean removeLastOccurrence(Object o) {
         Node<T> temptail = tail;
@@ -433,6 +444,7 @@ public class CustomDeque<T> implements Deque<T> {
                 return nextElement != null;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public T next() {
                 T result = nextElement.getElement();
@@ -453,6 +465,7 @@ public class CustomDeque<T> implements Deque<T> {
                 return previousElement != null;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public T next() {
                 T result = previousElement.getElement();
