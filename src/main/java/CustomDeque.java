@@ -75,8 +75,7 @@ public class CustomDeque<T> implements Deque<T> {
             head = temp;
             tail = temp;
             head.setPrevious(null);
-        }
-        else if (head.getNext() == null) {
+        } else if (head.getNext() == null) {
             head.setNext(temp);
             tail = temp;
             tail.setPrevious(head);
@@ -109,8 +108,7 @@ public class CustomDeque<T> implements Deque<T> {
             head.setNext(null);
             tail.setNext(null);
             tail.setNext(null);
-        }
-        else if (head.getNext() == null) {
+        } else if (head.getNext() == null) {
             tail = head;
             head = temp;
             tail.setPrevious(head);
@@ -155,12 +153,11 @@ public class CustomDeque<T> implements Deque<T> {
 
         T result = head.getElement();
 
-        if(size() == 1){
+        if (size() == 1) {
             head = null;
             tail = null;
             size = 0;
-        }
-        else if(size() == 2){
+        } else if (size() == 2) {
             head = tail;
             head.setNext(null);
             head.setPrevious(null);
@@ -184,12 +181,11 @@ public class CustomDeque<T> implements Deque<T> {
 
         T result = tail.getElement();
 
-        if(size() == 1){
+        if (size() == 1) {
             head = null;
             tail = null;
             size = 0;
-        }
-        else if(size() == 2){
+        } else if (size() == 2) {
             tail = head;
             tail.setNext(null);
             head.setNext(null);
@@ -279,7 +275,7 @@ public class CustomDeque<T> implements Deque<T> {
 
         Node<T> tmp;
 
-        if(o.equals(head.getElement())){
+        if (o.equals(head.getElement())) {
             head = head.getNext();
             head.setPrevious(null);
             size--;
@@ -290,11 +286,11 @@ public class CustomDeque<T> implements Deque<T> {
             tmp = temphead;
             temphead = temphead.getNext();
 
-            if(o.equals(temphead.getElement())){
+            if (o.equals(temphead.getElement())) {
                 temphead = tmp;
                 temphead.setNext(temphead.getNext().getNext());
                 size--;
-                if(i==size()-1)
+                if (i == size() - 1)
                     tail = temphead;
                 return true;
             }
@@ -334,7 +330,7 @@ public class CustomDeque<T> implements Deque<T> {
     public boolean removeAll(Collection<?> c) {
         boolean flag = false;
         Object[] objects = c.toArray();
-        Node <T> temp;
+        Node<T> temp;
 
         for (Object object : objects) {
             temp = head;
@@ -351,9 +347,25 @@ public class CustomDeque<T> implements Deque<T> {
         return flag;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException();
+        Node<T> temp = head;
+        List<T> list = new ArrayList<>();
+
+        for (int i = 0; i < size(); i++) {
+            list.add(temp.getElement());
+            temp = temp.getNext();
+        }
+
+        boolean flag = list.retainAll(c);
+        clear();
+
+        for (T t : list) {
+            addLast(t);
+        }
+
+        return flag;
     }
 
     @Override
@@ -366,8 +378,8 @@ public class CustomDeque<T> implements Deque<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean contains(Object o) {
-        Node<T>  temp = head;
-        if(!isEmpty()) {
+        Node<T> temp = head;
+        if (!isEmpty()) {
             for (int i = 0; i < size(); i++) {
                 if (o.equals(temp.getElement()))
                     return true;
@@ -409,7 +421,7 @@ public class CustomDeque<T> implements Deque<T> {
 
         Node<T> tmp;
 
-        if(o.equals(tail.getElement())){
+        if (o.equals(tail.getElement())) {
             tail = tail.getPrevious();
             tail.setNext(null);
             size--;
@@ -420,11 +432,11 @@ public class CustomDeque<T> implements Deque<T> {
             tmp = temptail;
             temptail = temptail.getPrevious();
 
-            if(o.equals(temptail.getElement())){
+            if (o.equals(temptail.getElement())) {
                 temptail = tmp;
                 temptail.setNext(temptail.getPrevious().getPrevious());
                 size--;
-                if(i==size()-1)
+                if (i == size() - 1)
                     head = temptail;
                 return true;
             }
@@ -437,7 +449,7 @@ public class CustomDeque<T> implements Deque<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
-            Node <T> nextElement = head;
+            Node<T> nextElement = head;
 
             @Override
             public boolean hasNext() {
@@ -458,7 +470,7 @@ public class CustomDeque<T> implements Deque<T> {
     public Iterator<T> descendingIterator() {
         return new Iterator<T>() {
 
-            Node <T> previousElement = tail;
+            Node<T> previousElement = tail;
 
             @Override
             public boolean hasNext() {

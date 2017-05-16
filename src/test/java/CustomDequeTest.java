@@ -190,9 +190,12 @@ public class CustomDequeTest {
         assertEquals(customDeque.size(), 2);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void shouldThrowExceptionWhenRetainAll(){
-        customDeque.retainAll(null);
+    @Test
+    public void shouldCorrectRetainAllDeque(){
+        List<Integer> list = new ArrayList<>(Arrays.asList(2,3));
+        customDeque.retainAll(list);
+        assertEquals((long) customDeque.getLast(), 3);
+        assertEquals((long) customDeque.getFirst(), 2);
     }
 
     @Test
